@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {BrowserModule, Title} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
 
-import { NgScrollbarModule } from 'ngx-scrollbar';
+import {NgScrollbarModule} from 'ngx-scrollbar';
 
 // Import routing module
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 
 // Import app component
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 
 // Import containers
-import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import {DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent} from './containers';
 
 import {
   AvatarModule,
@@ -28,15 +28,30 @@ import {
   GridModule,
   HeaderModule,
   ListGroupModule,
+  ModalBodyComponent,
+  ModalComponent,
+  ModalFooterComponent,
+  ModalHeaderComponent,
+  ModalTitleDirective,
+  ModalToggleDirective,
   NavModule,
   ProgressModule,
   SharedModule,
   SidebarModule,
+  TableActiveDirective,
+  TableColorDirective,
+  TableDirective,
   TabsModule,
+  ToastBodyComponent,
+  ToastComponent,
   UtilitiesModule
 } from '@coreui/angular';
 
-import { IconModule, IconSetService } from '@coreui/icons-angular';
+import {IconModule, IconSetService} from '@coreui/icons-angular';
+import {MagasinsComponent} from './views/magasins/magasins.component';
+import {DocsComponentsModule} from "@docs-components/docs-components.module";
+import {CreerMagasinComponent} from './views/magasins/creer-magasin/creer-magasin.component';
+import {HttpClientModule} from "@angular/common/http";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -45,7 +60,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -72,7 +87,20 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    DocsComponentsModule,
+    TableActiveDirective,
+    TableColorDirective,
+    TableDirective,
+    ModalBodyComponent,
+    ModalComponent,
+    ModalFooterComponent,
+    ModalHeaderComponent,
+    ModalTitleDirective,
+    ModalToggleDirective,
+    HttpClientModule,
+    ToastComponent,
+    ToastBodyComponent
   ],
   providers: [
     {
