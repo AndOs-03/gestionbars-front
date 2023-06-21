@@ -11,6 +11,7 @@ import {CreerMagasinCommande} from "./creer-magasin.commande";
 export class CreerMagasinComponent implements OnInit {
 
   formulaireSoumis: boolean = false;
+  formulaireValide: boolean = false;
   formulaireAjouterMagasin!: FormGroup;
   commande!: CreerMagasinCommande;
 
@@ -34,7 +35,19 @@ export class CreerMagasinComponent implements OnInit {
 
   actualiserValeursFormulaire() {
     this.actualiserCommande();
-    this.magasinService.setCommandeCreation(this.commande);
-    this.magasinService.formulaireEditionValide = this.formulaireAjouterMagasin.valid;
+    this.formulaireValide = this.formulaireAjouterMagasin.valid;
+  }
+
+  ajouterMagasin() {
+    this.magasinService.creerMagasin(this.commande).subscribe({
+      next: resultat => {
+        // this.notificationService.afficherMessageSucces(`Magasin ${resultat.libelle} crée avec succès.`, "Gestion-Bars");
+        this.magasinService.listerMagasins();
+      },
+      error: erreur => {
+        const messageErreur = erreur.error.parameters.message;
+        // this.notificationService.afficherMessageErreur(messageErreur, "Gestion-Bars");
+      }
+    });
   }
 }

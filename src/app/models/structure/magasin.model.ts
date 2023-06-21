@@ -1,8 +1,8 @@
-export class Magasin {
-  private id: string;
-  private libelle: string;
-  private adresse!: string;
-  private responsableId!: string;
+export class MagasinVM {
+  readonly id: string;
+  readonly libelle: string;
+  readonly adresse!: string;
+  readonly responsable!: string;
 
   constructor(id: string, libelle: string) {
     this.id = id;

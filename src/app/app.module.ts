@@ -42,8 +42,6 @@ import {
   TableColorDirective,
   TableDirective,
   TabsModule,
-  ToastBodyComponent,
-  ToastComponent,
   UtilitiesModule
 } from '@coreui/angular';
 
@@ -98,9 +96,7 @@ const APP_CONTAINERS = [
     ModalHeaderComponent,
     ModalTitleDirective,
     ModalToggleDirective,
-    HttpClientModule,
-    ToastComponent,
-    ToastBodyComponent
+    HttpClientModule
   ],
   providers: [
     {

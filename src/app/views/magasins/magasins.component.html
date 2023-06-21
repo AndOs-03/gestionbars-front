@@ -1,6 +1,6 @@
 <c-row ngPreserveWhitespaces>
   <c-col class="mb-1 text-lg-end">
-    <ng-container *ngTemplateOutlet="verticallyCenteredScrollable"></ng-container>
+    <app-creer-magasin></app-creer-magasin>
   </c-col>
   <c-col xs="12">
     <c-card class="mb-4">
@@ -18,18 +18,19 @@
             <th scope="col">Actions</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody *ngFor="let magasin of magasins">
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Atta</td>
+            <th scope="row">{{magasins.indexOf(magasin) + 1}}</th>
+            <td>{{magasin.libelle}}</td>
+            <td>{{magasin.adresse}}</td>
+            <td>{{magasin.responsable}}</td>
             <td class="text-right">
               <div class="btn-group-horizontal">
-                <a href="#" title="Modifier" class="btn btn-info icon-actions-liste">
+                <a title="Modifier"
+                   class="btn btn-info icon-actions-liste">
                   <svg cIcon name="cilPen"></svg>
                 </a>
-                <a href="#" title="Supprimer" class="btn btn-danger icon-actions-liste">
+                <a (click)="this.supprimerMagasin(magasin.id)" title="Supprimer" class="btn btn-danger icon-actions-liste">
                   <svg cIcon name="cilTrash"></svg>
                 </a>
               </div>
@@ -42,31 +43,3 @@
     </c-card>
   </c-col>
 </c-row>
-
-
-<ng-template #verticallyCenteredScrollable>
-  <button [cModalToggle]="verticallyCenteredScrollableModal.id" cButton color="primary">Ajouter
-  </button>
-  <c-modal #verticallyCenteredScrollableModal
-           [scrollable]="true"
-           alignment="center"
-           id="verticallyCenteredScrollableModal">
-    <c-modal-header>
-      <h5 cModalTitle>Créer Magasin</h5>
-      <button [cModalToggle]="verticallyCenteredScrollableModal.id" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-      <app-creer-magasin>
-
-      </app-creer-magasin>
-    </c-modal-body>
-    <c-modal-footer>
-      <button [cModalToggle]="verticallyCenteredScrollableModal.id" cButton color="secondary">
-        Close
-      </button>
-      <button cButton color="primary" (click)="magasinsService.creerMagasin()"
-              [disabled]="!this.magasinsService.formulaireEditionValide">Enregistrer
-      </button>
-    </c-modal-footer>
-  </c-modal>
-</ng-template>
