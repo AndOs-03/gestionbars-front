@@ -1,0 +1,63 @@
+<button [cModalToggle]="modalFormulaireCreerMagasin.id" cButton color="primary">Ajouter</button>
+
+<c-modal #modalFormulaireCreerMagasin
+         [scrollable]="true"
+         alignment="center"
+         id="modalFormulaireCreerMagasin">
+  <c-modal-header>
+    <h5 cModalTitle>Créer Magasin</h5>
+    <button [cModalToggle]="modalFormulaireCreerMagasin.id" cButtonClose></button>
+  </c-modal-header>
+  <ng-container *ngTemplateOutlet="formulaireCreation"></ng-container>
+  <c-modal-footer>
+    <button [cModalToggle]="modalFormulaireCreerMagasin.id" cButton color="secondary">
+      Fermer
+    </button>
+    <button cButton color="primary" (click)="this.ajouterMagasin()"
+            [disabled]="!this.formulaireValide">Enregistrer
+    </button>
+  </c-modal-footer>
+</c-modal>
+
+<ng-template #formulaireCreation>
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col>
+        <form [formGroup]="formulaireAjouterMagasin" class="was-validated"
+              (change)="this.actualiserValeursFormulaire()" novalidate>
+          <c-input-group class="mb-3">
+            <span cInputGroupText>A</span>
+            <input aria-describedby="basic-addon1"
+                   aria-label="Libelle"
+                   cFormControl
+                   placeholder="Libelle"
+                   formControlName="libelle"
+            />
+            <div *ngIf="formulaireAjouterMagasin.get('libelle')?.invalid &&
+          this.formulaireSoumis &&
+          (formulaireAjouterMagasin.get('libelle')?.dirty ||
+          formulaireAjouterMagasin.get('libelle')?.touched)"
+                 class="text-danger">
+              Le libelle est requis.
+            </div>
+          </c-input-group>
+          <c-input-group class="mb-3">
+            <span cInputGroupText>A</span>
+            <input aria-describedby="basic-addon1"
+                   aria-label="Adresse"
+                   cFormControl
+                   placeholder="Adresse"
+                   formControlName="adresse"
+            />
+          </c-input-group>
+          <c-input-group class="mb-3">
+            <select aria-label="Responsable" cSelect formControlName="responsableId">
+              <option>Choisir le responsable</option>
+              <option value="1">One</option>
+            </select>
+          </c-input-group>
+        </form>
+      </c-col>
+    </c-row>
+  </c-container>
+</ng-template>
