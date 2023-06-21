@@ -11,7 +11,7 @@
   <ng-container *ngTemplateOutlet="formulaireCreation"></ng-container>
   <c-modal-footer>
     <button [cModalToggle]="modalFormulaireCreerMagasin.id" cButton color="secondary">
-      Close
+      Fermer
     </button>
     <button cButton color="primary" (click)="this.ajouterMagasin()"
             [disabled]="!this.formulaireValide">Enregistrer

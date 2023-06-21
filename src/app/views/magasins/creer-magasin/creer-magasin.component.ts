@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MagasinsService} from "../magasins.service";
 import {CreerMagasinCommande} from "./creer-magasin.commande";
 
@@ -13,7 +13,7 @@ export class CreerMagasinComponent implements OnInit {
   formulaireSoumis: boolean = false;
   formulaireValide: boolean = false;
   formulaireAjouterMagasin!: FormGroup;
-  commande!: CreerMagasinCommande;
+  commande: CreerMagasinCommande;
 
   constructor(private formBuilder: FormBuilder, public magasinService: MagasinsService) {
     this.commande = new CreerMagasinCommande();
@@ -21,9 +21,9 @@ export class CreerMagasinComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulaireAjouterMagasin = this.formBuilder.group({
-      libelle: ['', Validators.required],
-      adresse: [''],
-      responsableId: ['']
+      libelle: new FormControl('', Validators.required),
+      adresse: new FormControl(''),
+      responsableId: new FormControl('')
     })
   }
 
@@ -39,6 +39,7 @@ export class CreerMagasinComponent implements OnInit {
   }
 
   ajouterMagasin() {
+    this.formulaireSoumis = true;
     this.magasinService.creerMagasin(this.commande).subscribe({
       next: resultat => {
         // this.notificationService.afficherMessageSucces(`Magasin ${resultat.libelle} crée avec succès.`, "Gestion-Bars");

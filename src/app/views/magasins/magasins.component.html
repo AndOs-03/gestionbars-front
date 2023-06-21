@@ -26,11 +26,12 @@
             <td>{{magasin.responsable}}</td>
             <td class="text-right">
               <div class="btn-group-horizontal">
-                <a title="Modifier"
+                <a (click)="affichierFormulaireModification(magasin.id)" title="Modifier"
                    class="btn btn-info icon-actions-liste">
                   <svg cIcon name="cilPen"></svg>
                 </a>
-                <a (click)="this.supprimerMagasin(magasin.id)" title="Supprimer" class="btn btn-danger icon-actions-liste">
+                <a (click)="this.supprimerMagasin(magasin.id)" title="Supprimer"
+                   class="btn btn-danger icon-actions-liste">
                   <svg cIcon name="cilTrash"></svg>
                 </a>
               </div>
@@ -43,3 +44,67 @@
     </c-card>
   </c-col>
 </c-row>
+
+
+
+
+<c-modal #modalFormulaireModification
+         [visible]="formulaireModificationVisible"
+         (visibleChange)="changementVisibiliteFormulaireModification($event)"
+         [scrollable]="true"
+         alignment="center"
+         id="modalFormulaireModification">
+  <c-modal-header>
+    <h5 cModalTitle>Modal title</h5>
+    <button [cModalToggle]="modalFormulaireModification.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col>
+          <form [formGroup]="formulaireModifierMagasin" class="was-validated"
+                (change)="this.actualiserValeursFormulaire()" novalidate>
+            <c-input-group class="mb-3">
+              <span cInputGroupText>A</span>
+              <input aria-describedby="basic-addon1"
+                     aria-label="Libelle"
+                     cFormControl
+                     placeholder="Libelle"
+                     formControlName="libelle"
+              />
+              <div *ngIf="formulaireModifierMagasin.get('libelle')?.invalid &&
+              this.formulaireSoumis &&
+              (formulaireModifierMagasin.get('libelle')?.dirty ||
+              formulaireModifierMagasin.get('libelle')?.touched)" class="text-danger">
+                Le libelle est requis.
+              </div>
+            </c-input-group>
+            <c-input-group class="mb-3">
+              <span cInputGroupText>A</span>
+              <input aria-describedby="basic-addon1"
+                     aria-label="Adresse"
+                     cFormControl
+                     placeholder="Adresse"
+                     formControlName="adresse"
+              />
+            </c-input-group>
+            <c-input-group class="mb-3">
+              <select aria-label="Responsable" cSelect formControlName="responsableId">
+                <option>Choisir le responsable</option>
+                <option value="1">One</option>
+              </select>
+            </c-input-group>
+          </form>
+        </c-col>
+      </c-row>
+    </c-container>
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="modalFormulaireModification.id" cButton color="secondary">
+      Fermer
+    </button>
+    <button cButton color="primary" (click)="this.modifierMagasin()"
+            [disabled]="!this.formulaireValide">Enregistrer
+    </button>
+  </c-modal-footer>
+</c-modal>
