@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MagasinsService} from "../magasins.service";
 import {CreerMagasinCommande} from "./creer-magasin.commande";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-creer-magasin',
@@ -15,16 +16,16 @@ export class CreerMagasinComponent implements OnInit {
   formulaireAjouterMagasin!: FormGroup;
   commande: CreerMagasinCommande;
 
-  constructor(private formBuilder: FormBuilder, public magasinService: MagasinsService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public magasinService: MagasinsService,
+    private toastr: ToastrService
+  ) {
     this.commande = new CreerMagasinCommande();
   }
 
   ngOnInit(): void {
-    this.formulaireAjouterMagasin = this.formBuilder.group({
-      libelle: new FormControl('', Validators.required),
-      adresse: new FormControl(''),
-      responsableId: new FormControl('')
-    })
+    this.initialisationDuFormulaire();
   }
 
   actualiserCommande() {
@@ -42,13 +43,38 @@ export class CreerMagasinComponent implements OnInit {
     this.formulaireSoumis = true;
     this.magasinService.creerMagasin(this.commande).subscribe({
       next: resultat => {
-        // this.notificationService.afficherMessageSucces(`Magasin ${resultat.libelle} crée avec succès.`, "Gestion-Bars");
-        this.magasinService.listerMagasins();
+        this.toastr.success(`Magasin crée avec succès.`, "Gestion-Bars");
+        this.magasinService.recupererDernierMagasin().subscribe(dernierMagasin => {
+          this.magasinService.magasins.push(dernierMagasin);
+        });
+        this.viderLeFormulaire();
       },
       error: erreur => {
         const messageErreur = erreur.error.parameters.message;
-        // this.notificationService.afficherMessageErreur(messageErreur, "Gestion-Bars");
+        this.toastr.error(messageErreur, "Gestion-Bars");
       }
     });
+  }
+
+  viderLeFormulaire() {
+    this.formulaireAjouterMagasin.get('libelle')?.setValue("");
+    this.formulaireSoumis = false;
+    this.formulaireValide = false;
+  }
+
+  changementDeVisibilite(visible: boolean) {
+    if (!visible) {
+      this.initialisationDuFormulaire();
+    }
+  }
+
+  initialisationDuFormulaire() {
+    this.formulaireAjouterMagasin = this.formBuilder.group({
+      libelle: new FormControl('', Validators.required),
+      adresse: new FormControl(''),
+      responsableId: new FormControl('')
+    });
+    this.formulaireSoumis = false;
+    this.formulaireValide = false;
   }
 }

@@ -3,8 +3,9 @@ import {MagasinsService} from "./magasins.service";
 import {MagasinVM} from "../../models/structure/magasin.model";
 import {ModifierMagasinCommande} from "./modifier-magasin.commande";
 import {MagasinDetailsVM} from "../../models/structure/magasin-details.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-magasins',
@@ -13,7 +14,6 @@ import {Observable} from "rxjs";
 })
 export class MagasinsComponent implements OnInit {
 
-  magasins: MagasinVM[] = [];
   commandeModification: ModifierMagasinCommande;
   magasinActuel!: MagasinDetailsVM;
 
@@ -22,38 +22,41 @@ export class MagasinsComponent implements OnInit {
   formulaireValide: boolean = false;
   formulaireSoumis: boolean = false;
 
-  constructor(private magasinService: MagasinsService, private formBuilder: FormBuilder) {
+  constructor(
+    public magasinService: MagasinsService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+  ) {
     this.commandeModification = new ModifierMagasinCommande();
   }
 
   ngOnInit(): void {
     this.listerMagasins();
-    this.formulaireModifierMagasin = this.formBuilder.group({
-      libelle: ['', Validators.required],
-      adresse: [''],
-      responsableId: ['']
-    });
+    this.initialisationDuFormulaire();
   }
 
   listerMagasins() {
     this.magasinService.listerMagasins().subscribe({
       next: resultat => {
-        this.magasins = resultat;
+        this.magasinService.magasins = resultat;
       },
       error: erreur => {
         const messageErreur = erreur.error.parameters.message;
+        this.toastr.error(messageErreur, "Erreur de chargement");
       }
     });
   }
 
-  supprimerMagasin(magasinId: string) {
+  supprimerMagasin(magasin: MagasinVM) {
+    const magasinId: string = magasin.id
     this.magasinService.supprimerMagasin(magasinId).subscribe({
       next: resultat => {
-        // TODO: MESSAGE SUCCES
+        this.toastr.success("Magasin supprimé avec succès !", "Gestion Bars");
         this.listerMagasins();
       },
       error: erreur => {
         const messageErreur = erreur.error.parameters.message;
+        this.toastr.error(messageErreur, "Erreur de suppression");
       }
     });
   }
@@ -64,7 +67,8 @@ export class MagasinsComponent implements OnInit {
 
 
   // ############################   METHODES DE MODIFICATION    ###################################
-  affichierFormulaireModification(magasinId: string) {
+  affichierFormulaireModification(magasin: MagasinVM) {
+    const magasinId: string = magasin.id;
     this.recupererMagasinActuel(magasinId).subscribe({
       next: resultat => {
         this.magasinActuel = resultat;
@@ -72,15 +76,28 @@ export class MagasinsComponent implements OnInit {
       },
       error: erreur => {
         const messageErreur = erreur.error.parameters.message;
-        // this.notificationService.afficherMessageErreur(messageErreur, "Gestion-Bars");
+        this.toastr.error(messageErreur, "Récupération du magasin");
       }
     });
 
     this.formulaireModificationVisible = !this.formulaireModificationVisible;
   }
 
-  changementVisibiliteFormulaireModification(visibile: boolean) {
-    this.formulaireModificationVisible = visibile;
+  changementDeVisibilite(visible: boolean) {
+    if (!visible) {
+      this.initialisationDuFormulaire();
+      this.formulaireModificationVisible = false;
+    }
+  }
+
+  initialisationDuFormulaire() {
+    this.formulaireModifierMagasin = this.formBuilder.group({
+      libelle: ['', Validators.required],
+      adresse: [''],
+      responsableId: ['']
+    });
+    this.formulaireSoumis = false;
+    this.formulaireValide = false;
   }
 
   actualiserValeursFormulaire() {
@@ -106,12 +123,13 @@ export class MagasinsComponent implements OnInit {
     this.commandeModification.setMagasinId(this.magasinActuel.id);
     this.magasinService.modifierMagasin(this.commandeModification).subscribe({
       next: resultat => {
-        // this.notificationService.afficherMessageSucces(`Magasin ${resultat.libelle} crée avec succès.`, "Gestion-Bars");
+        this.toastr.success(`Magasin modifié avec succès.`, "Gestion-Bars");
         this.listerMagasins();
+        this.formulaireModificationVisible = false;
       },
       error: erreur => {
         const messageErreur = erreur.error.parameters.message;
-        // this.notificationService.afficherMessageErreur(messageErreur, "Gestion-Bars");
+        this.toastr.error(messageErreur, "Gestion-Bars");
       }
     });
   }

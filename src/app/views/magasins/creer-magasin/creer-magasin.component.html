@@ -2,6 +2,7 @@
 
 <c-modal #modalFormulaireCreerMagasin
          [scrollable]="true"
+         (visibleChange)="changementDeVisibilite($event)"
          alignment="center"
          id="modalFormulaireCreerMagasin">
   <c-modal-header>
