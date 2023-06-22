@@ -16,6 +16,7 @@ const httpOptions = {
 export class MagasinsService {
 
   apiBaseUrl: string = 'http://localhost:8083/api/andos/gestionbars';
+  magasins: MagasinVM[] = [];
 
   constructor(private http: HttpClient) {
   }
@@ -30,6 +31,11 @@ export class MagasinsService {
     return this.http.get<MagasinVM[]>(url);
   }
 
+  modifierMagasin(commande: ModifierMagasinCommande): Observable<ModifierMagasinCommande> {
+    const url = `${this.apiBaseUrl}/magasins`;
+    return this.http.put<ModifierMagasinCommande>(url, commande, httpOptions);
+  }
+
   supprimerMagasin(magasinId: string): Observable<Object> {
     const url = `${this.apiBaseUrl}/magasins/${magasinId}`;
     return this.http.delete(url, httpOptions);
@@ -40,8 +46,8 @@ export class MagasinsService {
     return this.http.get<MagasinDetailsVM>(url);
   }
 
-  modifierMagasin(commande: ModifierMagasinCommande): Observable<ModifierMagasinCommande> {
-    const url = `${this.apiBaseUrl}/magasins`;
-    return this.http.put<ModifierMagasinCommande>(url, commande, httpOptions);
+  recupererDernierMagasin(): Observable<MagasinVM> {
+    const url = `${this.apiBaseUrl}/magasins/dernier-magasin`;
+    return this.http.get<MagasinVM>(url);
   }
 }

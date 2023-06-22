@@ -18,19 +18,19 @@
             <th scope="col">Actions</th>
           </tr>
           </thead>
-          <tbody *ngFor="let magasin of magasins">
+          <tbody *ngFor="let magasin of this.magasinService.magasins">
           <tr>
-            <th scope="row">{{magasins.indexOf(magasin) + 1}}</th>
+            <th scope="row">{{this.magasinService.magasins.indexOf(magasin) + 1}}</th>
             <td>{{magasin.libelle}}</td>
             <td>{{magasin.adresse}}</td>
             <td>{{magasin.responsable}}</td>
             <td class="text-right">
               <div class="btn-group-horizontal">
-                <a (click)="affichierFormulaireModification(magasin.id)" title="Modifier"
+                <a (click)="affichierFormulaireModification(magasin)" title="Modifier"
                    class="btn btn-info icon-actions-liste">
                   <svg cIcon name="cilPen"></svg>
                 </a>
-                <a (click)="this.supprimerMagasin(magasin.id)" title="Supprimer"
+                <a (click)="this.supprimerMagasin(magasin)" title="Supprimer"
                    class="btn btn-danger icon-actions-liste">
                   <svg cIcon name="cilTrash"></svg>
                 </a>
@@ -50,7 +50,7 @@
 
 <c-modal #modalFormulaireModification
          [visible]="formulaireModificationVisible"
-         (visibleChange)="changementVisibiliteFormulaireModification($event)"
+         (visibleChange)="changementDeVisibilite($event)"
          [scrollable]="true"
          alignment="center"
          id="modalFormulaireModification">

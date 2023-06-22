@@ -25,6 +25,9 @@ $enable-rtl: true;
 // If you want to add something do it here
 @import "custom";
 
+// regular style toast
+@import 'ngx-toastr/toastr';
+
 .icon-actions-liste {
   padding: 2px 5px;
   color: white;
