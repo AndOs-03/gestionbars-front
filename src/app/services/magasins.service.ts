@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {CreerMagasinCommande} from "./creer-magasin/creer-magasin.commande";
+import {CreerMagasinCommande} from "../views/magasins/creer-magasin/creer-magasin.commande";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {MagasinVM} from "../../models/structure/magasin.model";
-import {MagasinDetailsVM} from "../../models/structure/magasin-details.model";
-import {ModifierMagasinCommande} from "./modifier-magasin.commande";
+import {MagasinVM} from "../models/structure/magasin.model";
+import {MagasinDetailsVM} from "../models/structure/magasin-details.model";
+import {ModifierMagasinCommande} from "../views/magasins/modifier-magasin.commande";
 
 const httpOptions = {
   headers: new HttpHeaders({"Content-Type": "application/json"})
