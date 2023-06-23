@@ -1,11 +1,11 @@
 <c-row ngPreserveWhitespaces>
   <c-col class="mb-1 text-lg-end">
-    <app-creer-magasin></app-creer-magasin>
+    <app-creer-categorie></app-creer-categorie>
   </c-col>
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Liste des magasins</strong>
+        <strong>Liste des catégories</strong>
       </c-card-header>
       <c-card-body>
         <table [hover]="true" [striped]="true" cTable>
@@ -13,24 +13,20 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Libelle</th>
-            <th scope="col">Adresse</th>
-            <th scope="col">Responsable</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
-          <tbody *ngFor="let magasin of this.magasinService.magasins">
+          <tbody *ngFor="let categorie of this.categoriesService.categories">
           <tr>
-            <th scope="row">{{this.magasinService.magasins.indexOf(magasin) + 1}}</th>
-            <td>{{magasin.libelle}}</td>
-            <td>{{magasin.adresse}}</td>
-            <td>{{magasin.responsable}}</td>
+            <th scope="row">{{this.categoriesService.categories.indexOf(categorie) + 1}}</th>
+            <td>{{categorie.libelle}}</td>
             <td class="text-right">
               <div class="btn-group-horizontal">
-                <a (click)="affichierFormulaireModification(magasin)" title="Modifier"
+                <a (click)="affichierFormulaireModification(categorie)" title="Modifier"
                    class="btn btn-info icon-actions-liste">
                   <svg cIcon name="cilPen"></svg>
                 </a>
-                <a (click)="this.supprimerMagasin(magasin)" title="Supprimer"
+                <a (click)="this.supprimerCategorie(categorie)" title="Supprimer"
                    class="btn btn-danger icon-actions-liste">
                   <svg cIcon name="cilTrash"></svg>
                 </a>
@@ -46,8 +42,6 @@
 </c-row>
 
 
-
-
 <c-modal #modalFormulaireModification
          [visible]="formulaireModificationVisible"
          (visibleChange)="changementDeVisibilite($event)"
@@ -55,14 +49,14 @@
          alignment="center"
          id="modalFormulaireModification">
   <c-modal-header>
-    <h5 cModalTitle>Modifier Magasin</h5>
+    <h5 cModalTitle>Modifier Catégorie</h5>
     <button [cModalToggle]="modalFormulaireModification.id" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <c-container>
       <c-row class="justify-content-center">
         <c-col>
-          <form [formGroup]="formulaireModifierMagasin" class="was-validated"
+          <form [formGroup]="formulaireModifierCategorie" class="was-validated"
                 (change)="this.actualiserValeursFormulaire()" novalidate>
             <c-input-group class="mb-3">
               <span cInputGroupText>A</span>
@@ -72,27 +66,12 @@
                      placeholder="Libelle"
                      formControlName="libelle"
               />
-              <div *ngIf="formulaireModifierMagasin.get('libelle')?.invalid &&
+              <div *ngIf="formulaireModifierCategorie.get('libelle')?.invalid &&
               this.formulaireSoumis &&
-              (formulaireModifierMagasin.get('libelle')?.dirty ||
-              formulaireModifierMagasin.get('libelle')?.touched)" class="text-danger">
+              (formulaireModifierCategorie.get('libelle')?.dirty ||
+              formulaireModifierCategorie.get('libelle')?.touched)" class="text-danger">
                 Le libelle est requis.
               </div>
-            </c-input-group>
-            <c-input-group class="mb-3">
-              <span cInputGroupText>A</span>
-              <input aria-describedby="basic-addon1"
-                     aria-label="Adresse"
-                     cFormControl
-                     placeholder="Adresse"
-                     formControlName="adresse"
-              />
-            </c-input-group>
-            <c-input-group class="mb-3">
-              <select aria-label="Responsable" cSelect formControlName="responsableId">
-                <option>Choisir le responsable</option>
-                <option value="1">One</option>
-              </select>
             </c-input-group>
           </form>
         </c-col>
@@ -103,7 +82,7 @@
     <button [cModalToggle]="modalFormulaireModification.id" cButton color="secondary">
       Fermer
     </button>
-    <button cButton color="primary" (click)="this.modifierMagasin()"
+    <button cButton color="primary" (click)="this.modifierCategorie()"
             [disabled]="!this.formulaireValide">Enregistrer
     </button>
   </c-modal-footer>

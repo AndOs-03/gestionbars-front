@@ -7,6 +7,7 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import {MagasinsComponent} from "./views/magasins/magasins.component";
+import {CategoriesComponent} from "./views/categories/categories.component";
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'dashboard'},
@@ -79,7 +80,14 @@ const routes: Routes = [
         component: MagasinsComponent,
         data: {
           title: 'Magasins'
-        }
+        },
+      },
+      {
+        path: 'structures/categories',
+        component: CategoriesComponent,
+        data: {
+          title: 'Catégories'
+        },
       },
     ]
   },

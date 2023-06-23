@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MagasinsService} from "./magasins.service";
+import {MagasinsService} from "../../services/magasins.service";
 import {MagasinVM} from "../../models/structure/magasin.model";
 import {ModifierMagasinCommande} from "./modifier-magasin.commande";
 import {MagasinDetailsVM} from "../../models/structure/magasin-details.model";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 

@@ -51,6 +51,8 @@ import {DocsComponentsModule} from "@docs-components/docs-components.module";
 import {CreerMagasinComponent} from './views/magasins/creer-magasin/creer-magasin.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
+import { CategoriesComponent } from './views/categories/categories.component';
+import { CreerCategorieComponent } from './views/categories/creer-categorie/creer-categorie.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -59,7 +61,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

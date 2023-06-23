@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {MagasinsService} from "../magasins.service";
+import {MagasinsService} from "../../../services/magasins.service";
 import {CreerMagasinCommande} from "./creer-magasin.commande";
 import {ToastrService} from "ngx-toastr";
 
