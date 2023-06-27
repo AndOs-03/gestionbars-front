@@ -60,6 +60,10 @@ export class CreerMarqueComponent {
     this.photoMarque = event.target.files[0];
   }
 
+  recupererUrlPhotoSelectionner(file: File): string {
+    return URL.createObjectURL(file);
+  }
+
   viderLeFormulaire() {
     this.formulaireAjouterMarque.get('libelle')?.setValue("");
     this.formulaireSoumis = false;

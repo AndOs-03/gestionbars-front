@@ -17,16 +17,13 @@ const httpOptions = {
 export class MarquesService {
 
   apiBaseUrl: string = 'http://localhost:8083/api/andos/gestionbars';
+  marquesApiBaseUrl: string = `${this.apiBaseUrl}/marques`;
   marques: MarqueVM[] = [];
 
   constructor(private http: HttpClient) {
   }
 
   creerMarque(commande: CreerMarqueCommande, photo: File): Observable<any> {
-    const headers: HttpHeaders = new HttpHeaders();
-    headers.append('Accept', 'multipart/form-data');
-    const url: string = `${this.apiBaseUrl}/marques`;
-
     const commandeJsonString: string = JSON.stringify(commande);
     const commandeBlob: Blob = new Blob([commandeJsonString], {type: 'application/json'});
     const commandeFile: File = new File([commandeBlob], 'data.json', {type: 'application/json'});
@@ -35,34 +32,37 @@ export class MarquesService {
     formData.append("commande", commandeFile);
     formData.append("photo", photo);
 
-    return this.http.post<any>(url, formData);
+    return this.http.post<any>(this.marquesApiBaseUrl, formData);
   }
 
   listerMarques(): Observable<MarqueVM[]> {
-    const url = `${this.apiBaseUrl}/marques`;
-    return this.http.get<MarqueVM[]>(url);
+    return this.http.get<MarqueVM[]>(this.marquesApiBaseUrl);
   }
 
   modifierMarque(commande: ModifierMarqueCommande, photo: File): Observable<any> {
-    const url: string = `${this.apiBaseUrl}/marques`;
+    const commandeJsonString: string = JSON.stringify(commande);
+    const commandeBlob: Blob = new Blob([commandeJsonString], {type: 'application/json'});
+    const commandeFile: File = new File([commandeBlob], 'data.json', {type: 'application/json'});
+
     const formData: FormData = new FormData();
-    formData.append("commande", JSON.stringify(commande));
+    formData.append("commande", commandeFile);
     formData.append("photo", photo);
-    return this.http.put<any>(url, formData, httpOptions);
+
+    return this.http.put<any>(this.marquesApiBaseUrl, formData);
   }
 
   supprimerMarque(marqueId: string): Observable<Object> {
-    const url = `${this.apiBaseUrl}/marques/${marqueId}`;
+    const url = `${this.marquesApiBaseUrl}/${marqueId}`;
     return this.http.delete(url, httpOptions);
   }
 
   recupererMarqueParId(marqueId: string): Observable<MarqueVM> {
-    const url = `${this.apiBaseUrl}/marques/${marqueId}`;
+    const url = `${this.marquesApiBaseUrl}/${marqueId}`;
     return this.http.get<MarqueVM>(url);
   }
 
   recupererDerniereMarque(): Observable<MarqueVM> {
-    const url = `${this.apiBaseUrl}/marques/derniere-marque`;
+    const url = `${this.marquesApiBaseUrl}/derniere-marque`;
     return this.http.get<MarqueVM>(url);
   }
 }
