@@ -1,0 +1,57 @@
+<button [cModalToggle]="modalFormulaireCreerCategorie.id" cButton color="primary">Ajouter</button>
+
+<c-modal #modalFormulaireCreerCategorie
+         [scrollable]="true"
+         (visibleChange)="changementDeVisibilite($event)"
+         alignment="center"
+         id="modalFormulaireCreerCategorie">
+  <c-modal-header>
+    <h5 cModalTitle>Créer Marque</h5>
+    <button [cModalToggle]="modalFormulaireCreerCategorie.id" cButtonClose></button>
+  </c-modal-header>
+  <ng-container *ngTemplateOutlet="formulaireCreation"></ng-container>
+  <c-modal-footer>
+    <button [cModalToggle]="modalFormulaireCreerCategorie.id" cButton color="secondary">
+      Fermer
+    </button>
+    <button cButton color="primary" (click)="this.ajouterMarque()"
+            [disabled]="!this.formulaireValide">Enregistrer
+    </button>
+  </c-modal-footer>
+</c-modal>
+
+<ng-template #formulaireCreation>
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col>
+        <form [formGroup]="formulaireAjouterMarque" class="was-validated"
+              (change)="this.actualiserValeursFormulaire()" novalidate>
+          <c-input-group class="mb-3">
+            <span cInputGroupText>A</span>
+            <input aria-describedby="basic-addon1"
+                   aria-label="Libelle"
+                   cFormControl
+                   placeholder="Libelle"
+                   formControlName="libelle"
+            />
+            <div *ngIf="formulaireAjouterMarque.get('libelle')?.invalid &&
+          this.formulaireSoumis &&
+          (formulaireAjouterMarque.get('libelle')?.dirty ||
+          formulaireAjouterMarque.get('libelle')?.touched)"
+                 class="text-danger">
+              Le libelle est requis.
+            </div>
+          </c-input-group>
+          <c-input-group class="mb-3">
+            <input class="form-control" type="file" id="photoMarque"
+                   aria-label="Image de la marque"
+                   cFormControl
+                   formControlName="photoMarque"
+                   (change)="selectionDePhoto($event)"
+            />
+          </c-input-group>
+        </form>
+      </c-col>
+    </c-row>
+  </c-container>
+</ng-template>

@@ -30,7 +30,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.listerCategorie();
+    this.listerCategories();
     this.initialisationDuFormulaire();
   }
 
