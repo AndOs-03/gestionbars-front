@@ -8,6 +8,7 @@ import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import {MagasinsComponent} from "./views/magasins/magasins.component";
 import {CategoriesComponent} from "./views/categories/categories.component";
+import {MarquesComponent} from "./views/marques/marques.component";
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'dashboard'},
@@ -87,6 +88,13 @@ const routes: Routes = [
         component: CategoriesComponent,
         data: {
           title: 'Catégories'
+        },
+      },
+      {
+        path: 'structures/marques',
+        component: MarquesComponent,
+        data: {
+          title: 'Marques'
         },
       },
     ]

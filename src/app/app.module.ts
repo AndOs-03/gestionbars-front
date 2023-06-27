@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {HashLocationStrategy, LocationStrategy, NgOptimizedImage} from '@angular/common';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -26,7 +26,7 @@ import {
   FooterModule,
   FormModule,
   GridModule,
-  HeaderModule,
+  HeaderModule, ImgDirective,
   ListGroupModule,
   ModalBodyComponent,
   ModalComponent,
@@ -53,6 +53,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
 import { CategoriesComponent } from './views/categories/categories.component';
 import { CreerCategorieComponent } from './views/categories/creer-categorie/creer-categorie.component';
+import { MarquesComponent } from './views/marques/marques.component';
+import { CreerMarqueComponent } from './views/marques/creer-marque/creer-marque.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -61,7 +63,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent, MarquesComponent, CreerMarqueComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -100,7 +102,10 @@ const APP_CONTAINERS = [
     ModalTitleDirective,
     ModalToggleDirective,
     HttpClientModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
+    ImgDirective,
+    NgOptimizedImage,
+    // ToastrModule added
   ],
   providers: [
     {
