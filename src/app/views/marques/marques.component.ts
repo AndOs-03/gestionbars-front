@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {Observable} from "rxjs";
 import {ModifierMarqueCommande} from "./modifier-marque.commande";
@@ -20,6 +20,7 @@ export class MarquesComponent implements OnInit {
   formulaireModificationVisible: boolean = false;
   formulaireValide: boolean = false;
   formulaireSoumis: boolean = false;
+  photoMarque!: File;
 
   constructor(
     public marqueService: MarquesService,
@@ -91,7 +92,8 @@ export class MarquesComponent implements OnInit {
 
   initialisationDuFormulaire() {
     this.formulaireModifierMarque = this.formBuilder.group({
-      libelle: ['', Validators.required]
+      libelle: new FormControl('', Validators.required),
+      photoMarque: new FormControl('')
     });
     this.formulaireSoumis = false;
     this.formulaireValide = false;
@@ -103,7 +105,7 @@ export class MarquesComponent implements OnInit {
   }
 
   actualiserCommande() {
-    // this.commandeModification.setLibelle(this.formulaireModifierMarque.get('libelle')?.value);
+    this.commandeModification.setLibelle(this.formulaireModifierMarque.get('libelle')?.value);
   }
 
   afficherValeursActuellesDansFormulaire() {
@@ -111,19 +113,28 @@ export class MarquesComponent implements OnInit {
     this.formulaireValide = true;
   }
 
+  selectionDePhoto(event: any) {
+    this.photoMarque = event.target.files[0];
+    this.marqueActuel.urlPhoto = this.recupererUrlPhotoSelectionner(this.photoMarque);
+  }
+
+  recupererUrlPhotoSelectionner(file: File): string {
+    return URL.createObjectURL(file);
+  }
+
   modifierMarque() {
-    // this.formulaireSoumis = true;
-    // this.commandeModification.setCategorieId(this.categorieActuel.id);
-    // this.categoriesService.modifierCategorie(this.commandeModification).subscribe({
-    //   next: resultat => {
-    //     this.toastr.success(`Catégorie modifiée avec succès.`, "Gestion-Bars");
-    //     this.listerCategories();
-    //     this.formulaireModificationVisible = false;
-    //   },
-    //   error: erreur => {
-    //     const messageErreur = erreur.error.parameters.message;
-    //     this.toastr.error(messageErreur, "Gestion-Bars");
-    //   }
-    // });
+    this.formulaireSoumis = true;
+    this.commandeModification.setMarqueIdd(this.marqueActuel.id);
+    this.marqueService.modifierMarque(this.commandeModification, this.photoMarque).subscribe({
+      next: resultat => {
+        this.toastr.success(`Marque modifiée avec succès.`, "Gestion-Bars");
+        this.listerMarques();
+        this.formulaireModificationVisible = false;
+      },
+      error: erreur => {
+        const messageErreur = erreur.error.parameters.message;
+        this.toastr.error(messageErreur, "Gestion-Bars");
+      }
+    });
   }
 }

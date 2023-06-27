@@ -76,6 +76,18 @@
                 Le libelle est requis.
               </div>
             </c-input-group>
+            <c-input-group class="mb-3">
+              <input class="form-control" type="file" id="photoMarque"
+                     aria-label="Image de la marque"
+                     cFormControl
+                     formControlName="photoMarque"
+                     (change)="selectionDePhoto($event)"
+                     accept="image/*"
+              />
+            </c-input-group>
+            <c-card>
+              <img rounded cImg fluid [src]="marqueActuel?.urlPhoto" alt="IMG"/>
+            </c-card>
           </form>
         </c-col>
       </c-row>

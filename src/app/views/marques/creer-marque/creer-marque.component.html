@@ -48,8 +48,13 @@
                    cFormControl
                    formControlName="photoMarque"
                    (change)="selectionDePhoto($event)"
+                   accept="image/*"
             />
           </c-input-group>
+          <c-card>
+            <img rounded cImg fluid [src]="recupererUrlPhotoSelectionner(this.photoMarque)" alt="IMG"
+                 *ngIf="this.photoMarque"/>
+          </c-card>
         </form>
       </c-col>
     </c-row>
