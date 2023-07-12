@@ -9,6 +9,10 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import {MagasinsComponent} from "./views/magasins/magasins.component";
 import {CategoriesComponent} from "./views/categories/categories.component";
 import {MarquesComponent} from "./views/marques/marques.component";
+import {FournisseursComponent} from "./views/fournisseurs/fournisseurs.component";
+import {
+  CreerFournisseurComponent
+} from "./views/fournisseurs/creer-fournisseur/creer-fournisseur.component";
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'dashboard'},
@@ -76,6 +80,7 @@ const routes: Routes = [
       },
 
 
+      //------------------------------------STRUCTURES----------------------------
       {
         path: 'structures/magasins',
         component: MagasinsComponent,
@@ -95,6 +100,22 @@ const routes: Routes = [
         component: MarquesComponent,
         data: {
           title: 'Marques'
+        },
+      },
+
+      //-----------------------------------TIERS-----------------------------
+      {
+        path: 'tiers/fournisseurs',
+        component: FournisseursComponent,
+        data: {
+          title: 'Fournisseurs'
+        },
+      },
+      {
+        path: 'tiers/fournisseurs/creer',
+        component: CreerFournisseurComponent,
+        data: {
+          title: 'Fournisseurs / Créer'
         },
       },
     ]

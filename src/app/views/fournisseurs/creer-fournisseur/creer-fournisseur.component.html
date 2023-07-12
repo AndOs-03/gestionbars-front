@@ -1,0 +1,87 @@
+<c-container>
+  <form [formGroup]="formulaireCreerFournisseur" class="was-validated"
+        (change)="this.actualiserValeursFormulaire()" novalidate (submit)="this.ajouterFournisseur()">
+
+    <div class="row">
+      <div class="form-group mb-3 col-md-3">
+        <label for="personnalite">Personnalité</label>
+        <select aria-label="Responsable" cSelect formControlName="personnalite" id="personnalite">
+          <option selected>Personnalité</option>
+
+          <option value="1">One</option>
+        </select>
+        <div *ngIf="formulaireCreerFournisseur.get('personnalite')?.invalid &&
+          this.formulaireSoumis && (formulaireCreerFournisseur.get('personnalite')?.dirty ||
+          formulaireCreerFournisseur.get('personnalite')?.touched)" class="text-danger">
+          Choisir la personnalité.
+        </div>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="nomFournisseur">Nom</label>
+        <input aria-describedby="basic-addon1" aria-label="Nom" cFormControl placeholder="Nom"
+               formControlName="nom" id="nomFournisseur"/>
+        <div *ngIf="formulaireCreerFournisseur.get('nom')?.invalid &&
+          this.formulaireSoumis && (formulaireCreerFournisseur.get('nom')?.dirty ||
+          formulaireCreerFournisseur.get('nom')?.touched)" class="text-danger">
+          Le nom est requis.
+        </div>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="contactFournisseur">Contact</label>
+        <input aria-describedby="basic-addon1" aria-label="Contact" cFormControl placeholder="Contact"
+               formControlName="contact" id="contactFournisseur" type="tel"/>
+        <div *ngIf="formulaireCreerFournisseur.get('contact')?.invalid &&
+          this.formulaireSoumis && (formulaireCreerFournisseur.get('contact')?.dirty ||
+          formulaireCreerFournisseur.get('contact')?.touched)" class="text-danger">
+          Le contact est requis.
+        </div>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="emailFournisseur">E-mail</label>
+        <input aria-describedby="basic-addon1" aria-label="E-mail" cFormControl placeholder="E-mail"
+               formControlName="email" id="emailFournisseur" type="email"/>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="adresseFournisseur">Adresse</label>
+        <input aria-describedby="basic-addon1" aria-label="Adresse" cFormControl placeholder="Adresse"
+               formControlName="adresse" id="adresseFournisseur"/>
+        <div *ngIf="formulaireCreerFournisseur.get('adresse')?.invalid &&
+          this.formulaireSoumis && (formulaireCreerFournisseur.get('adresse')?.dirty ||
+          formulaireCreerFournisseur.get('adresse')?.touched)" class="text-danger">
+          L'adresse est requis.
+        </div>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="activiteFournisseur">Activité</label>
+        <input aria-describedby="basic-addon1" aria-label="Activité" cFormControl placeholder="Activité"
+               formControlName="activite" id="activiteFournisseur"/>
+        <div *ngIf="formulaireCreerFournisseur.get('activite')?.invalid &&
+          this.formulaireSoumis && (formulaireCreerFournisseur.get('activite')?.dirty ||
+          formulaireCreerFournisseur.get('activite')?.touched)" class="text-danger">
+          L'activité est requis.
+        </div>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="interlocuteurFournisseur">Interlocuteur</label>
+        <input aria-describedby="basic-addon1" aria-label="Interlocuteur" cFormControl placeholder="Interlocuteur"
+               formControlName="interlocuteur" id="interlocuteurFournisseur"/>
+      </div>
+
+      <div class="form-group mb-3 col-md-3">
+        <label for="detteInitialeFournisseur">Dette Initiale</label>
+        <input aria-describedby="basic-addon1" aria-label="Dette Initiale" cFormControl placeholder="0.0"
+               formControlName="detteInitiale" id="detteInitialeFournisseur"/>
+      </div>
+    </div>
+
+    <c-col class="mb-1 text-lg-center">
+      <button type="submit" name="btnEnregistrer" id="btnEnregistrer" class="btn btn-primary">Enregistrer</button>
+    </c-col>
+  </form>
+</c-container>

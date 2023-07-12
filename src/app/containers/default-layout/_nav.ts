@@ -51,14 +51,6 @@ export const navItems: INavData[] = [
         name: 'Fournisseurs',
         url: '/tiers/fournisseurs'
       },
-      {
-        name: 'Banques',
-        url: '/tiers/banques'
-      },
-      {
-        name: 'Opérations Bancaires',
-        url: '/tiers/operations-bancaires'
-      }
     ]
   },
   {
