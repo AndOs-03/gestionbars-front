@@ -55,6 +55,8 @@ import { CategoriesComponent } from './views/categories/categories.component';
 import { CreerCategorieComponent } from './views/categories/creer-categorie/creer-categorie.component';
 import { MarquesComponent } from './views/marques/marques.component';
 import { CreerMarqueComponent } from './views/marques/creer-marque/creer-marque.component';
+import { FournisseursComponent } from './views/fournisseurs/fournisseurs.component';
+import { CreerFournisseurComponent } from './views/fournisseurs/creer-fournisseur/creer-fournisseur.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -63,7 +65,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent, MarquesComponent, CreerMarqueComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent, MarquesComponent, CreerMarqueComponent, FournisseursComponent, CreerFournisseurComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

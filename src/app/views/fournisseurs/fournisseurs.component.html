@@ -1,0 +1,52 @@
+<c-row ngPreserveWhitespaces>
+  <c-col class="mb-1 text-lg-end">
+    <button cButton color="primary" (click)="this.afficherFormulaireDeCreation()">Ajouter</button>
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Liste des fournisseurs</strong>
+      </c-card-header>
+      <c-card-body>
+        <table [hover]="true" [striped]="true" cTable>
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Email</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Activité</th>
+            <th scope="col">Dette Initiale</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let fournisseur of this.fournisseursService.fournisseurs">
+          <tr>
+            <th scope="row">{{this.fournisseursService.fournisseurs.indexOf(fournisseur) + 1}}</th>
+            <td>{{fournisseur.nom}}</td>
+            <td>{{fournisseur.contact}}</td>
+            <td>{{fournisseur.email}}</td>
+            <td>{{fournisseur.adresse}}</td>
+            <td>{{fournisseur.activite}}</td>
+            <td>{{fournisseur.detteInitiale}}</td>
+            <td class="text-right">
+              <div class="btn-group-horizontal">
+                <a (click)="affichierFormulaireModification(fournisseur)" title="Modifier"
+                   class="btn btn-info icon-actions-liste">
+                  <svg cIcon name="cilPen"></svg>
+                </a>
+                <a (click)="this.supprimerFournisseur(fournisseur)" title="Supprimer"
+                   class="btn btn-danger icon-actions-liste">
+                  <svg cIcon name="cilTrash"></svg>
+                </a>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
