@@ -39,14 +39,39 @@ export class FournisseursComponent implements OnInit {
   }
 
   afficherFormulaireDeCreation() {
-    this.router.navigate(['tiers/fournisseurs/creer'])
+    this.router.navigate(['tiers/fournisseurs/creer']);
   }
 
   affichierFormulaireModification(fournisseur: FournisseurVM) {
-
+    this.router.navigate(['tiers/fournisseurs/modifier', fournisseur.id]);
   }
 
   supprimerFournisseur(fournisseur: FournisseurVM) {
-
+    const fournisseurId: string = fournisseur.id
+    this.fournisseursService.supprimerFournisseur(fournisseurId).subscribe({
+      next: resultat => {
+        this.toastr.success("Fournisseur supprimé avec succès !", "Gestion Bars");
+        this.listerFournisseurs();
+      },
+      error: erreur => {
+        const messageErreur = erreur.error.parameters.message;
+        this.toastr.error(messageErreur, "Erreur de suppression");
+      }
+    });
   }
+
+  // afficherDialogSuppression(fournisseur: FournisseurVM) {
+  //   const dialogRef = this.dialog.open(
+  //     ConfirmationDialogComponent, {
+  //       data: {
+  //         message: 'Êtes-vous sur de supprimer ce fournisseur ?'
+  //       }
+  //     });
+  //
+  //   dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+  //     if (confirmed) {
+  //       this.supprimerFournisseur(fournisseur);
+  //     }
+  //   });
+  // }
 }

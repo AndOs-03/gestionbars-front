@@ -1,5 +1,3 @@
-import {PersonnaliteFournisseur} from "./personnalite-fournisseur";
-
 export class FournisseurVM {
   readonly id: string;
   readonly nom: string;
@@ -9,7 +7,7 @@ export class FournisseurVM {
   readonly activite!: string;
   readonly interlocuteur!: string;
   readonly detteInitiale!: string;
-  readonly personnalite!: PersonnaliteFournisseur;
+  readonly personnalite!: string;
 
   constructor(id: string, nom: string) {
     this.id = id;

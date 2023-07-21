@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FournisseursService} from "../../../services/fournisseurs.service";
 import {CreerFournisseurCommande} from "./creer-fournisseur.commande";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-creer-fournisseur',
@@ -21,7 +22,8 @@ export class CreerFournisseurComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private fournisseurService: FournisseursService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
     this.personnalites = this.transformerPersonnaliteEnListe();
     this.commande = new CreerFournisseurCommande();
@@ -32,7 +34,7 @@ export class CreerFournisseurComponent implements OnInit {
   }
 
   transformerPersonnaliteEnListe() {
-    return Object.values(PersonnaliteFournisseur).filter((v: PersonnaliteFournisseur) => isNaN(Number(v)))
+    return Object.values(PersonnaliteFournisseur);
   }
 
   actualiserCommande() {
@@ -52,11 +54,7 @@ export class CreerFournisseurComponent implements OnInit {
   }
 
   ajouterFournisseur() {
-    let personnalite = this.formulaireCreerFournisseur.get('personnalite')?.value;
-    if (personnalite === "Personnalité" || personnalite.length === 0) {
-      this.toastr.error("Choisir la personnalité", "Gestion-Bars");
-      throw new Error("Choisir la personnalité");
-    }
+    this.validationFormulaire();
     this.formulaireSoumis = true;
     this.fournisseurService.creerFournisseur(this.commande).subscribe({
       next: resultat => {
@@ -73,6 +71,14 @@ export class CreerFournisseurComponent implements OnInit {
     });
   }
 
+  private validationFormulaire(): void {
+    let personnalite = this.formulaireCreerFournisseur.get('personnalite')?.value;
+    if (personnalite === "Personnalité" || personnalite.length === 0) {
+      this.toastr.error("Choisir la personnalité", "Gestion-Bars");
+      throw new Error("Choisir la personnalité");
+    }
+  }
+
   initialisationDuFormulaire() {
     this.formulaireCreerFournisseur = this.formBuilder.group({
       personnalite: new FormControl('Personnalité', Validators.required),
@@ -86,5 +92,9 @@ export class CreerFournisseurComponent implements OnInit {
     });
     this.formulaireSoumis = false;
     this.formulaireValide = false;
+  }
+
+  annulerEdition() {
+    this.router.navigate(['tiers/fournisseurs']);
   }
 }

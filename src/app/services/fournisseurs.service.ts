@@ -5,6 +5,9 @@ import {FournisseurVM} from "../models/tiers/fournisseur.model";
 import {
   CreerFournisseurCommande
 } from "../views/fournisseurs/creer-fournisseur/creer-fournisseur.commande";
+import {
+  ModifierFournisseurCommande
+} from "../views/fournisseurs/modifier-fournisseur/modifier-fournisseur.commande";
 
 const httpOptions = {
   headers: new HttpHeaders({"Content-Type": "application/json"})
@@ -16,21 +19,36 @@ const httpOptions = {
 export class FournisseursService {
 
   apiBaseUrl: string = 'http://localhost:8083/api/andos/gestionbars';
-  marquesApiBaseUrl: string = `${this.apiBaseUrl}/fournisseurs`;
+  fournisseursApiBaseUrl: string = `${this.apiBaseUrl}/fournisseurs`;
   fournisseurs: FournisseurVM[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   listerFournisseurs(): Observable<FournisseurVM[]> {
-    return this.http.get<FournisseurVM[]>(this.marquesApiBaseUrl);
+    return this.http.get<FournisseurVM[]>(this.fournisseursApiBaseUrl);
   }
 
   creerFournisseur(commande: CreerFournisseurCommande): Observable<CreerFournisseurCommande> {
-    return this.http.post<CreerFournisseurCommande>(this.marquesApiBaseUrl, commande, httpOptions);
+    return this.http.post<CreerFournisseurCommande>(this.fournisseursApiBaseUrl, commande, httpOptions);
+  }
+
+  modifierFournisseur(commande: ModifierFournisseurCommande): Observable<ModifierFournisseurCommande> {
+    return this.http.put<ModifierFournisseurCommande>(this.fournisseursApiBaseUrl, commande, httpOptions);
+  }
+
+  supprimerFournisseur(fournisseurId: string): Observable<Object> {
+    const url = `${this.fournisseursApiBaseUrl}/${fournisseurId}`;
+    return this.http.delete(url, httpOptions);
+  }
+
+  recupererFournisseurParId(fournisseurId: string): Observable<FournisseurVM> {
+    const url = `${this.fournisseursApiBaseUrl}/${fournisseurId}`;
+    return this.http.get<FournisseurVM>(url);
   }
 
   recupererDernierFournisseur(): Observable<FournisseurVM> {
-    const url = `${this.marquesApiBaseUrl}/dernier-fournisseur`;
+    const url = `${this.fournisseursApiBaseUrl}/dernier-fournisseur`;
     return this.http.get<FournisseurVM>(url);
   }
 }
