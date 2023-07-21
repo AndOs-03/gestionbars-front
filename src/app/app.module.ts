@@ -51,12 +51,19 @@ import {DocsComponentsModule} from "@docs-components/docs-components.module";
 import {CreerMagasinComponent} from './views/magasins/creer-magasin/creer-magasin.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
-import { CategoriesComponent } from './views/categories/categories.component';
-import { CreerCategorieComponent } from './views/categories/creer-categorie/creer-categorie.component';
-import { MarquesComponent } from './views/marques/marques.component';
-import { CreerMarqueComponent } from './views/marques/creer-marque/creer-marque.component';
-import { FournisseursComponent } from './views/fournisseurs/fournisseurs.component';
-import { CreerFournisseurComponent } from './views/fournisseurs/creer-fournisseur/creer-fournisseur.component';
+import {CategoriesComponent} from './views/categories/categories.component';
+import {
+  CreerCategorieComponent
+} from './views/categories/creer-categorie/creer-categorie.component';
+import {MarquesComponent} from './views/marques/marques.component';
+import {CreerMarqueComponent} from './views/marques/creer-marque/creer-marque.component';
+import {FournisseursComponent} from './views/fournisseurs/fournisseurs.component';
+import {
+  CreerFournisseurComponent
+} from './views/fournisseurs/creer-fournisseur/creer-fournisseur.component';
+import {
+  ModifierFournisseurComponent
+} from "./views/fournisseurs/modifier-fournisseur/modifier-fournisseur.component";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -65,7 +72,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent, MarquesComponent, CreerMarqueComponent, FournisseursComponent, CreerFournisseurComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, MagasinsComponent, CreerMagasinComponent, CategoriesComponent, CreerCategorieComponent, MarquesComponent, CreerMarqueComponent, FournisseursComponent, CreerFournisseurComponent, ModifierFournisseurComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

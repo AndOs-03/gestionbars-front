@@ -13,6 +13,9 @@ import {FournisseursComponent} from "./views/fournisseurs/fournisseurs.component
 import {
   CreerFournisseurComponent
 } from "./views/fournisseurs/creer-fournisseur/creer-fournisseur.component";
+import {
+  ModifierFournisseurComponent
+} from "./views/fournisseurs/modifier-fournisseur/modifier-fournisseur.component";
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'dashboard'},
@@ -116,6 +119,13 @@ const routes: Routes = [
         component: CreerFournisseurComponent,
         data: {
           title: 'Fournisseurs / Créer'
+        },
+      },
+      {
+        path: 'tiers/fournisseurs/modifier/:id',
+        component: ModifierFournisseurComponent,
+        data: {
+          title: 'Fournisseurs / Modifier'
         },
       },
     ]

@@ -1,7 +1,7 @@
 <c-container>
-  <form [formGroup]="formulaireCreerFournisseur" class="was-validated"
+  <form [formGroup]="formulaireModifierFournisseur" class="was-validated"
         (change)="this.actualiserValeursFormulaire()" novalidate
-        (submit)="this.ajouterFournisseur()">
+        (submit)="this.modifierFournisseur()">
 
     <div class="row">
       <div class="form-group mb-3 col-md-3">
@@ -11,9 +11,9 @@
           <option *ngFor="let personalite of this.personnalites"
                   [value]="personalite">{{personalite}}</option>
         </select>
-        <div *ngIf="formulaireCreerFournisseur.get('personnalite')?.invalid &&
-          this.formulaireSoumis && (formulaireCreerFournisseur.get('personnalite')?.dirty ||
-          formulaireCreerFournisseur.get('personnalite')?.touched)" class="text-danger">
+        <div *ngIf="formulaireModifierFournisseur.get('personnalite')?.invalid &&
+          this.formulaireSoumis && (formulaireModifierFournisseur.get('personnalite')?.dirty ||
+          formulaireModifierFournisseur.get('personnalite')?.touched)" class="text-danger">
           Choisir la personnalité.
         </div>
       </div>
@@ -22,9 +22,9 @@
         <label for="nomFournisseur">Nom</label>
         <input aria-describedby="basic-addon1" aria-label="Nom" cFormControl placeholder="Nom"
                formControlName="nom" id="nomFournisseur"/>
-        <div *ngIf="formulaireCreerFournisseur.get('nom')?.invalid &&
-          this.formulaireSoumis && (formulaireCreerFournisseur.get('nom')?.dirty ||
-          formulaireCreerFournisseur.get('nom')?.touched)" class="text-danger">
+        <div *ngIf="formulaireModifierFournisseur.get('nom')?.invalid &&
+          this.formulaireSoumis && (formulaireModifierFournisseur.get('nom')?.dirty ||
+          formulaireModifierFournisseur.get('nom')?.touched)" class="text-danger">
           Le nom est requis.
         </div>
       </div>
@@ -34,9 +34,9 @@
         <input aria-describedby="basic-addon1" aria-label="Contact" cFormControl
                placeholder="Contact"
                formControlName="contact" id="contactFournisseur" type="tel"/>
-        <div *ngIf="formulaireCreerFournisseur.get('contact')?.invalid &&
-          this.formulaireSoumis && (formulaireCreerFournisseur.get('contact')?.dirty ||
-          formulaireCreerFournisseur.get('contact')?.touched)" class="text-danger">
+        <div *ngIf="formulaireModifierFournisseur.get('contact')?.invalid &&
+          this.formulaireSoumis && (formulaireModifierFournisseur.get('contact')?.dirty ||
+          formulaireModifierFournisseur.get('contact')?.touched)" class="text-danger">
           Le contact est requis.
         </div>
       </div>
@@ -52,9 +52,9 @@
         <input aria-describedby="basic-addon1" aria-label="Adresse" cFormControl
                placeholder="Adresse"
                formControlName="adresse" id="adresseFournisseur"/>
-        <div *ngIf="formulaireCreerFournisseur.get('adresse')?.invalid &&
-          this.formulaireSoumis && (formulaireCreerFournisseur.get('adresse')?.dirty ||
-          formulaireCreerFournisseur.get('adresse')?.touched)" class="text-danger">
+        <div *ngIf="formulaireModifierFournisseur.get('adresse')?.invalid &&
+          this.formulaireSoumis && (formulaireModifierFournisseur.get('adresse')?.dirty ||
+          formulaireModifierFournisseur.get('adresse')?.touched)" class="text-danger">
           L'adresse est requis.
         </div>
       </div>
@@ -64,9 +64,9 @@
         <input aria-describedby="basic-addon1" aria-label="Activité" cFormControl
                placeholder="Activité"
                formControlName="activite" id="activiteFournisseur"/>
-        <div *ngIf="formulaireCreerFournisseur.get('activite')?.invalid &&
-          this.formulaireSoumis && (formulaireCreerFournisseur.get('activite')?.dirty ||
-          formulaireCreerFournisseur.get('activite')?.touched)" class="text-danger">
+        <div *ngIf="formulaireModifierFournisseur.get('activite')?.invalid &&
+          this.formulaireSoumis && (formulaireModifierFournisseur.get('activite')?.dirty ||
+          formulaireModifierFournisseur.get('activite')?.touched)" class="text-danger">
           L'activité est requis.
         </div>
       </div>
